@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="ui stackable centered grid">
+    <div class="ten wide column">
+        <div class="ui centered card">
+            <div class="image">
+                <img src="https://images.unsplash.com/photo-1559521783-1d1599583485?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=80">
+            </div>
+            <div class="content">
+                <h1 class="ui header">Register</h1>
+                <form class="ui form validated-form" action="/register" method="POST" novalidate>
+                  <div class="field">
+                    <label for="username">Username</label>
+                    <div class="ui input focus">
+                      <input type="text" id="username" name="username" placeholder="username" required>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" name="email" placeholder="e-mail" required>
+                  </div>
+                  <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                  </div>
+                  <div class="fields">
+                    <div class="twelve wide field">
+                      <button class="ui button primary" type="submit">Register</button>
+                    </div>
+                  </div>
+                  <div class="ui error message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    

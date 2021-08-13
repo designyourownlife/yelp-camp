@@ -1,0 +1,53 @@
+<div class="ui container grid">
+  <div class="computer tablet only row">
+    <div class="ui inverted menu navbar">
+        <a href="/" class="brand header item"><strong>YelpCamp</strong></a>
+        <a href="/" class="item">Home</a>
+        <a href="/campgrounds" class="item">All Campgrounds</a>
+        <a href="/campgrounds/new" class="item">New Campground</a>
+        <div class="right menu">
+          <% if(!currentUser) { %>
+            <a href="/login" class="item"><i class="right sign in alternate
+              icon"></i> Login</a>
+            <a href="/register" class="item"><i class="right user circle alternate
+                icon"></i> Register</a>
+          <% } else { %>
+            <div class="item"><%= currentUser.username %></div>
+            <a href="/logout" class="item"><i class="right sign out alternate
+              icon"></i> Logout</a>
+          <% } %>
+        </div>
+    </div>
+  </div>
+  <div class="mobile only narrow row">
+    <div class="ui inverted navbar menu">
+        <a href="" class="brand item">YelpCamp</a>
+        <div class="right menu open">
+            <a href="" class="menu item">
+                <i class="bars icon"></i>
+            </a>
+        </div>
+    </div>
+    <div class="ui vertical navbar menu">
+        <a href="/" class="item">Home</a>
+        <a href="/campgrounds" class="item">All Campgrounds</a>
+        <a href="/campgrounds/new" class="item">New Campground</a>
+        <% if(!currentUser) { %>
+          <a href="/login" class="item">
+            <div class="ui teal label"><i class="sign in alternate
+              icon"></i></div>Login
+          </a>
+          <a href="/register" class="item">
+                <div class="ui blue label"><i class="user alternate
+                  icon"></i></div>Register</a>
+        <% } else { %>
+          <a href="/logout" class="item">
+            <div class="ui red label"><i class="sign out alternate
+              icon"></i></div>
+            <div class="ui label"><%= currentUser.username %></div>Logout
+          </a>
+        <% } %>
+        </div>
+    </div>
+  </div>
+</div>

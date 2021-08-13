@@ -1,0 +1,22 @@
+<% if (success && success.length) { %>
+  <div class="ui positive message" role="alert">
+<% } else { %>
+  <div class="ui hidden positive message">
+<% } %>
+    <i class="close icon"></i>
+    <div class="header">
+        <%= success %>
+    </div>
+  </div>
+
+
+  <% if (error && error.length) { %>
+    <div class="ui negative message" role="alert">
+  <% } else { %>
+    <div class="ui hidden negative message">
+  <% } %>
+      <i class="close icon"></i>
+      <div class="header">
+          <%= error %>
+      </div>
+    </div>

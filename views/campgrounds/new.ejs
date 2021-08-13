@@ -1,0 +1,42 @@
+<% layout('layouts/boilerplate') %>
+
+    <h1>Add new Campground</h1>
+
+    <form class="ui form validated-form" action="/campgrounds" method="POST" enctype="multipart/form-data" novalidate>
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="campground[title]" placeholder="title" required>
+        </div>
+        <div class="field">
+          <label for="title">Location</label>
+          <input type="text" id="location" name="campground[location]" placeholder="location" required>
+        </div>
+        <div class="field">
+          <label for="price">Price</label>
+          <div class="ui labeled input">
+            <label for="price" class="ui label">€</label>
+            <input type="text" id="price" name="campground[price]" placeholder="0.00" required>
+          </div>
+        </div>      
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea rows="2" id="description" name="campground[description]"></textarea>
+        </div>
+        <div class="field">
+          <label for="image">Upload images</label>
+          <div class="ui right labeled left icon input custom-file">
+            <i class="image icon"></i>
+            <input type="file" id="image" name="image" placeholder="image" multiple>
+            <a class="ui tag label custom-file-label">
+              choose image(s) …
+            </a>
+          </div>
+        </div>
+        <div class="fields">
+          <div class="twelve wide field">
+            <button class="ui button primary" type="submit">Save</button>
+            <a href="/campgrounds" class="ui inverted secondary button">Back</a>
+          </div>
+        </div>
+        <div class="ui error message"></div>
+      </form>

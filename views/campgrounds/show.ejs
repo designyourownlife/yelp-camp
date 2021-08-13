@@ -1,0 +1,135 @@
+<% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/stars.css" /> 
+
+<script>
+  const mapToken = '<%= process.env.MAPBOX_TOKEN %>';
+  const campground = <%- JSON.stringify(campground) %>;
+</script>
+<div class="ui container grid">
+  <div class="row">
+    <div id="map"></div>
+  </div>
+</div>
+<div class="ui stackable centered grid">
+  <div class="ten wide column">
+    <div class="ui cards">
+      <div class="ui card">
+        <div class="image campgroundSlider">
+          <% if(campground.images && campground.images.length > 0) { %> 
+            <% for(let img of campground.images) { %> 
+              <div><img src="<%= img.url %>" alt=""></div>
+            <% } %> 
+          <% } %> 
+        </div>
+        <div class="content">
+          <div class="header"><%= campground.title %></div>
+          <div class="meta">
+            <a><%= campground.location %></a>
+          </div>
+          <div class="description">
+            <%= campground.description %>
+          </div>
+        </div>
+        <div class="extra content">
+          <i class="user icon"></i> <%= campground.author.username %>
+          <span class="ui label right floated"><%= campground.price %> €</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui two column centered grid">
+      <div class="column center aligned">
+        <% if(currentUser && campground.author.equals(currentUser._id)) { %> 
+          <form class="ui form" action="/campgrounds/<%= campground._id%>?_method=DELETE" method="POST">
+            <button type="submit" class="ui inverted red button">Delete</button>
+            <a href="/campgrounds/<%= campground._id%>/edit" class="ui inverted primary button">Edit</a>
+          </form>
+        <% } %> 
+      </div>
+    </div>
+    </div>
+    <% if(currentUser) { %> 
+    <div class="six wide column">
+      <h4 class="">Leave a Review</h4>
+          <form class="ui form validated-form" action="/campgrounds/<%= campground._id%>/reviews" method="POST" novalidate>
+            <!-- <div class="field">
+              <label for="rating">Rating</label>
+              <input type="range" name="review[rating]" min="1" max="5" id="rating">
+            </div> -->
+            
+              <fieldset class="starability-basic">
+                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating" />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+            
+            <div class="field">
+              <label for="body">Review</label>
+              <textarea rows="2" id="body" name="review[body]"></textarea>
+            </div>
+            <div class="fields">
+              <div class="twelve wide field">
+                <button class="ui button primary" type="submit">Submit</button>
+              </div>
+            </div>
+            <div class="ui error message"></div>
+          </form>
+          <div class="ui horizontal section divider">
+            Reviews
+          </div>
+          <div class="ui very relaxed divided list">
+            <% for (let review of campground.reviews) { %>
+            <div class="item">
+              <div class="content">
+                <div class="header">
+                  <div class="ui label">
+                    <i class="user icon"></i> <%= review.author.username %>
+                  </div>
+                  <% if(currentUser && review.author.equals(currentUser._id)) { %> 
+                  <div class="right floated content">
+                    <form class="ui form" action="/campgrounds/<%= campground._id%>/reviews/<%= review._id%>/?_method=DELETE" method="POST">
+                      <div class="ui small basic orange icon buttons">
+                        <button type="submit" class="ui button"><i class="trash alternate icon"></i></button>
+                      </div>
+                    </form>
+                  </div>
+                  <% } %> 
+                </div>
+                <div>&nbsp;</div>
+                <div class="starability-result" data-rating="<%=review.rating%>">
+                  Rated: <%=review.rating%> stars
+                </div>
+                <div>&nbsp;</div>
+                <div class="description"><%=review.body%></div>
+              </div>
+            </div>
+              
+              
+            <% } %>
+          </div>
+    </div>
+    <% } %> 
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/js/showPageMap.js"></script>
+<script>
+  $('.campgroundSlider').slick({
+    draggable: true,
+    accessibility: false,
+    slidesToShow: 1,
+    arrows: true,
+    dots: false,
+    swipeToSlide: true,
+    adaptiveHeight: true
+  });
+</script>

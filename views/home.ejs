@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to YelpCamp</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/css/home.css" />   
+</head>
+<body id="root">
+  <main>
+  <div class="ui large top fixed hidden menu">
+    <div class="ui container">
+      <a class="active item" href="#">Home</a>
+      <a class="item" href="/campgrounds">Campgrounds</a>
+      <div class="right menu">
+        <% if(!currentUser) { %> 
+        <div class="item"><a class="ui button" href="/login">Login</a></div>
+        <div class="item"><a class="ui primary button" href="/register">Register</a></div>
+        <% } else { %> 
+        <div class="item"><a class="ui button" href="/logout">Logout</a></div>
+        <% } %> 
+      </div>
+    </div>
+  </div>
+  <!--Sidebar Menu-->
+  <div class="ui vertical inverted sidebar menu">
+    <a class="active item" href="#">Home</a>
+    <a class="item" href="/campgrounds">Campgrounds</a>
+    <% if(!currentUser) { %> 
+      <a class="item" href="/login">Login</a><
+      <a class="item" href="/register">Register</a>
+      <% } else { %> 
+      <a class="item" href="/logout">Logout</a>
+      <% } %> 
+    <a class="item">Login</a> <a class="item">Signup</a>
+  </div>
+  <!--Page Contents-->
+  <div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+      <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+          <a class="toc item"><i class="sidebar icon"></i></a>
+          <a class="active item" href="#">Home</a>
+          <a class="item" href="/campgrounds">Campgrounds</a>
+          <div class="right item">
+            <% if(!currentUser) { %> 
+              <a class="ui inverted button" href="/login">Login</a>
+              <a class="ui inverted button" href="/register">Register</a>
+              <% } else { %> 
+              <a class="ui inverted button" href="/logout">Logout</a>
+              <% } %> 
+          </div>
+        </div>
+      </div>
+      <div class="ui text container landing">
+        <h1 class="ui inverted header">YelpCamp</h1>
+        <h2>Find the most beautiful camping sites, specially selected for you.</h2>
+        <a class="ui huge primary button" href="/campgrounds">View Campgrounds <i class="right arrow icon"></i></a>
+      </div>
+    </div>
+    </main>
+    <div class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <div
+          class="ui stackable inverted divided equal height stackable grid"
+        >
+          <div class="three wide column">
+            <h4 class="ui inverted header">About</h4>
+            <div class="ui inverted link list">
+              <a class="item" href="#root">Sitemap</a>
+              <a class="item" href="#root">Contact Us</a>
+              <a class="item" href="#root">Religious Ceremonies</a>
+              <a class="item" href="#root">Gazebo Plans</a>
+            </div>
+          </div>
+          <div class="three wide column">
+            <h4 class="ui inverted header">Services</h4>
+            <div class="ui inverted link list">
+              <a class="item" href="#root">Banana Pre-Order</a>
+              <a class="item" href="#root">DNA FAQ</a>
+              <a class="item" href="#root">How To Access</a>
+              <a class="item" href="#root">Favorite X-Men</a>
+            </div>
+          </div>
+          <div class="seven wide column">
+            <h4 class="ui inverted header">Welcome to YelpCamp</h4>
+            <p>
+              Jump right in and explore our many campgrounds. Feel free to share some of your own and comment on others!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    $(document).ready(function() {
+      // fix menu when passed
+      $(".masthead").visibility({
+        once: false,
+        onBottomPassed: function() {
+          $(".fixed.menu").transition("fade in");
+        },
+        onBottomPassedReverse: function() {
+          $(".fixed.menu").transition("fade out");
+        }
+      });
+
+      // create sidebar and attach to menu open
+      $(".ui.sidebar").sidebar("attach events", ".toc.item");
+    });
+  </script>
+</body>
+</html>
